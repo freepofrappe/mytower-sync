@@ -1,0 +1,4 @@
+.install.conf
+*.png
+*.log
+.DS_Store
