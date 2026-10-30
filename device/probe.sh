@@ -17,8 +17,10 @@ RISH="$PREFIX/bin/rish"
             *uid=2000*) echo "rish_ok=yes" ;;
             *)          echo "rish_ok=no"; echo "rish_out=$(printf '%s' "$out" | head -c 160 | tr '\n' ' ')" ;;
         esac
-        n="$(env -u LD_LIBRARY_PATH timeout 20s "$RISH" -c "wc -c < '$EXPORT'" < /dev/null 2>/dev/null | tr -d ' \r\n')"
+        raw="$(env -u LD_LIBRARY_PATH timeout 20s "$RISH" -c "stat -c %s '$EXPORT'" < /dev/null 2>&1)"
+        n="$(printf '%s' "$raw" | tr -cd '0-9')"
         echo "export_bytes_via_rish=${n:-0}"
+        echo "export_probe_raw=$(printf '%s' "$raw" | head -c 160 | tr '\n' ' ')"
     else
         echo "rish_installed=no"
         echo "rish_ok=no"
