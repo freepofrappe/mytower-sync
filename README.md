@@ -41,8 +41,11 @@ you can also just run `./install.sh --check` and follow the output.
    rish -c id < /dev/null        # must print uid=2000(shell); allow Termux in the Shizuku popup
    ```
 4. **The Tower**: Settings → **Auto Export** on. Play until it saves once.
-5. **adb over Wi-Fi**: plug in USB once and run `adb tcpip 5555` on the Mac. Prefer the
-   tablet's Tailscale address if you have one. This step repeats after every reboot.
+5. **adb over Wi-Fi**: plug in USB once and run `adb tcpip 5555` on the Mac, then note the
+   tablet's Wi-Fi address (Settings → Wireless debugging). Only the installer needs adb; the
+   loop itself runs on the tablet with no connection to the Mac. `adb tcpip` repeats after
+   every reboot, so re-plug before rerunning the installer. If the tablet runs a VPN such as
+   Tailscale, connect to its VPN address instead of the Wi-Fi one.
 6. **mytower API key**: mytower.app → Load save page → create a key (`mt_...`).
 
 ## Install
@@ -55,7 +58,7 @@ Four questions, each with a default in brackets. Enter keeps it. On a rerun the 
 are your previous answers, so `./install.sh --yes` repeats the last install with no questions.
 
 ```
-Tablet adb address (ip:port, use the Tailscale IP if you have one) [100.x.y.z:5555]:
+Tablet adb address (ip:port, from Settings -> Wireless debugging) [192.168.1.50:5555]:
 mytower API key (from the Load save page) [mt_abc...xyz]:
 Seconds between upload checks [1800]:
 Start automatically after a reboot? (y/n) [y]:

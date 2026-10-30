@@ -1,6 +1,7 @@
 #!/bin/bash
-# mytower-sync installer. Run on a Mac (or anything with adb) on the same
-# network or tailnet as the tablet. Nothing is typed on the tablet by hand.
+# mytower-sync installer. Run on a Mac (or anything with adb) on the same Wi-Fi
+# as the tablet. Only the install needs adb; afterwards the loop runs on the tablet
+# alone. Nothing is typed on the tablet by hand.
 #
 #   ./install.sh            ask the questions, check the tablet, install, start the loop
 #   ./install.sh --check    only connect and check; change nothing
@@ -71,7 +72,7 @@ ask() {   # ask VAR "prompt" [secret]
 
 echo "mytower-sync installer ($MODE)"
 echo
-ask DEVICE      "Tablet adb address (ip:port, use the Tailscale IP if you have one)"
+ask DEVICE      "Tablet adb address (ip:port, from Settings -> Wireless debugging)"
 ask MYTOWER_KEY "mytower API key (from the Load save page)" secret
 ask INTERVAL    "Seconds between upload checks"
 ask BOOT        "Start automatically after a reboot? (y/n)"
@@ -122,8 +123,8 @@ if ! A echo ok | grep -q ok; then
     echo "  FAIL  cannot reach $DEVICE"
     echo "        -> On the tablet: Developer options -> Wireless debugging on."
     echo "        -> Plug in USB once and run: adb tcpip 5555   (it does not survive a reboot)"
-    echo "        -> If you use Tailscale, use the tablet's 100.x address; a LAN address can be"
-    echo "           captured by a subnet router and refused."
+    echo "        -> Mac and tablet must be on the same Wi-Fi. If the tablet runs a VPN"
+    echo "           (e.g. Tailscale), connect to its VPN address instead of the Wi-Fi one."
     exit 1
 fi
 ok "adb reachable ($(A getprop ro.product.model) Android $(A getprop ro.build.version.release))"

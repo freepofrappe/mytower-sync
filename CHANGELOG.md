@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.1 (2026-10-30)
+
+Docs only. Removed the Tailscale/RustDesk wording: the minimal setup needs adb on the same
+Wi-Fi during install only, and no remote-access tools at all. Default address example is now
+a LAN address; a VPN address is mentioned once as optional.
+
 ## 0.1.0 (2026-10-30)
 
 First version. Automatic upload of `tool_export.json` to mytower.app only.
@@ -11,4 +17,4 @@ First version. Automatic upload of `tool_export.json` to mytower.app only.
 - Reboot hook via Termux:Boot.
 
 Not included (see the full tower-monitor project): Google Drive archive, status Sheet,
-RustDesk/Tailscale watchdog, game-foreground enforcement.
+remote-access watchdog, game-foreground enforcement. None of those are needed for uploads.
