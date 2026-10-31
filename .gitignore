@@ -2,3 +2,4 @@
 *.png
 *.log
 .DS_Store
+releases/*.zip
